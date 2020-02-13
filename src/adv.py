@@ -48,7 +48,8 @@ Player = Player(input("Name: "), room['outside'])
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
-
+    
+print("Welcome", Player.name)
 
 def action(choice): 
     if choice == 'n':
@@ -62,22 +63,46 @@ def action(choice):
     # elif choice == 'q':
     #     print("Thanks for playing!")
     #     break
-    
 
 
 while True: 
-    print("Welcome", Player.name)
+
     print("Your position is currently: ", Player.current_room.name)
     print("The description of your surroundings is: ", Player.current_room.description)
 
     choice = input("Please enter [n] North   [s] South  [e] East  [w] West to move or  [q] Quit \n")
 
-    movement = action(choice)
+
     
     if choice == 'n':
-        print("You moved north")
+        if Player.current_room.n_to is not None:
+            print("You moved north!")
+            Player.current_room = Player.current_room.n_to
+        else: 
+            print("You're going the wrong way! Try again.")
+    elif choice == 's':
+        if Player.current_room.s_to is not None:
+            print("You moved south!")
+            Player.current_room = Player.current_room.s_to
+        else: 
+            print("You're going the wrong way! Try again.")
+    elif choice == 'e':
+        if Player.current_room.e_to is not None:
+            print("You moved east!")
+            Player.current_room = Player.current_room.e_to
+        else: 
+            print("You're going the wrong way! Try again.")
+    elif choice == 'w':
+        if Player.current_room.w_to is not None:
+            print("You moved west!")
+            Player.current_room = Player.current_room.w_to
+        else: 
+            print("You're going the wrong way! Try again.")
     elif choice == 'q':
         print("Thanks for playing!")
         break
     else: 
         print("Invalid input, please use 'n', 's', 'e', 'w")
+        movement = action(choice)
+        #moved movement because kept getting an variable "movement" referenced before assignment so I figured putting it at the bottom would work
+
