@@ -3,10 +3,12 @@
 
 #added none because getting typeerror that init is missing 4 required positional arguments
 class Room():
-    def __init__(self, name, description, n_to = None , s_to = None, e_to = None, w_to = None):
+    def __init__(self, name, description, item):
         self.name = name
         self.description = description
-        self.n_to = n_to
-        self.s_to = s_to
-        self.e_to = e_to
-        self.w_to = w_to
+        self.n_to = None # or just = None without adding the directions in the arguments
+        self.s_to = None
+        self.e_to = None
+        self.w_to = None
+        self.item = item
+       
