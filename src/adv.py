@@ -3,6 +3,13 @@ from player import Player
 from item import Item
 # Declare all the rooms
 
+# items = {
+#     'potion': Item("a potion", """Heals your wounds"""),
+#     'sword': Item("a sword", """To fight the bad guys"""),
+#     'shoe': Item("an old shoe", """Looks like someone left this here"""),
+#     'reward': Item("gold", """Congratulations!"""),
+# }
+
 room = {
     'outside':  Room("Outside Cave Entrance", """North of you, the cave mount beckons.""",Item("No items", """---""")),
 
@@ -21,13 +28,7 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south.""", Item("gold", """Congratulations!""")), 
 }
 
-# item = {
-#     'outside': Item("nothing", """No description"""),
-#     'foyer': Item("a potion", """Heals your wounds"""),
-#     'overlook': Item("a sword", """A sword to fight the bad guys"""),
-#     'narrow': Item("an old shoe", """Looks like someone lef this here"""),
-#     'treasure': Item("gold", """Congratulations!"""),
-# }
+
 
 # Link rooms together
 
@@ -40,24 +41,21 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-# room['outside'] = item['nothing']
-# room['foyer'] = item['a potion']
-# room['overlook'] = item['a sword']
-# room['narrow'] = item['an old shoe']
-# room['treasure'] = item['gold']
+
 #
 # Main
 #
 print("\nWelcome to adventure time!\n")
 # Make a new player object that is currently in the 'outside' room.
-player = Player(input("\nName: "), room['outside'])
+player = Player(input("\nName: "), room['outside'], '')
 
 # Write a loop that:
 
-    
+player.items = []   
 print("\n\nWelcome", player.name)
 
-
+# def on_take(item):
+#     if 
 while True: 
 
     print("\nYour position is currently: ", player.current_room.name)
@@ -72,7 +70,8 @@ while True:
             print("\nYou moved north!\n")
             
             player.current_room = player.current_room.n_to
-            print("Item: ", player.current_room.item)
+            print("This room has a: ", player.current_room.item)
+        
         else: 
             print("You're going the wrong way! Try again.")
     elif choice == 's':
@@ -99,6 +98,14 @@ while True:
             print("Item: ", player.current_room.item)
         else: 
             print("\nYou're going the wrong way! Try again.")
+    elif choice == 'take':
+        player.items.append(player.current_room.item.name)
+        del player.current_room.item
+        print("You took an item!")
+
+    elif choice == 'my items' or choice == 'i':
+        stuff = ""+", ".join(player.items)
+        print(f"\nYour items: {stuff}")
     elif choice == 'q':
         print("\nThanks for playing!\n")
         break
